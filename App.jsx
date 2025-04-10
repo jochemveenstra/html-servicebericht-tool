@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-export default function HtmlServiceberichtGenerator() {
+export default function App() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
@@ -19,37 +16,39 @@ export default function HtmlServiceberichtGenerator() {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold">HTML Servicebericht Generator</h1>
-      <p className="text-muted-foreground">
-        Plak hieronder je servicebericht tekst (meerdere alinea's toegestaan, gescheiden door een witregel).
-        Eventuele HTML-links worden nog niet automatisch herkend.
+    <div style={{ maxWidth: '720px', margin: '0 auto', padding: '2rem' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>HTML Servicebericht Generator</h1>
+      <p style={{ marginBottom: '1rem', color: '#555' }}>
+        Plak hieronder je servicebericht tekst. Elke alinea wordt automatisch HTML. Witregels blijven behouden.
       </p>
-
-      <Textarea
+      <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        rows={12}
+        rows={10}
+        style={{ width: '100%', padding: '1rem', fontSize: '1rem' }}
         placeholder="Plak hier je tekst..."
-        className="text-base"
       />
-
-      <Button onClick={generateHTML} className="text-lg">
+      <button
+        onClick={generateHTML}
+        style={{ marginTop: '1rem', padding: '0.75rem 1.5rem', fontSize: '1rem', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '4px' }}
+      >
         Genereer HTML
-      </Button>
+      </button>
 
       {output && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
+          style={{ marginTop: '2rem' }}
         >
-          <Card>
-            <CardContent className="p-4">
-              <h2 className="text-xl font-semibold mb-2">Gegenereerde HTML</h2>
-              <Textarea value={output} readOnly rows={output.split("\n").length} className="font-mono text-sm" />
-            </CardContent>
-          </Card>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Gegenereerde HTML</h2>
+          <textarea
+            value={output}
+            readOnly
+            rows={output.split("\n").length}
+            style={{ width: '100%', fontFamily: 'monospace', padding: '1rem', fontSize: '0.9rem' }}
+          />
         </motion.div>
       )}
     </div>
